@@ -15,6 +15,24 @@ data <- data %>%
 
 # Create a bubble map of the data
 
+g <- list(
+  scope = 'usa',
+  projection = list(type = 'albers usa'),
+  showland = TRUE,
+  landcolor = toRGB(red),
+  subunitwidth = 2,
+  countrywidth = 1,
+  subunitcolor = toRGB("grey"),
+  countrycolor = toRGB("grey")
+)
+
+plot_ly(data, lon = lon, lat = lat, text = hover,
+        marker = list(size = sqrt(pop/10000) + 1),
+        color = q, type = 'scattergeo', locationmode = 'USA-states') %>%
+  layout(title = 'Crowdsource Shooting<br>(By US City)', geo = g)
+
+
 ### Bonus: create informative hover text ###
+hover <- paste(city, date, how_many_died)
 
 ### Bonus: Use multiple colors ###
